@@ -4,6 +4,14 @@
  * and open the template in the editor.
  */
 package com.sv.udb.vista;
+import com.sv.udb.controlador.VerSeresVivosCtrl;
+import com.sv.udb.modelo.VerSeresVivos;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -14,9 +22,37 @@ public class FrmSeresVivos extends javax.swing.JFrame {
     /**
      * Creates new form FrmSeresVivos
      */
-    public FrmSeresVivos() {
+    public FrmSeresVivos() {              
         initComponents();
+        setLocationRelativeTo(null);
+        llenarCombobox();
     }
+    
+    
+    //Metodo para consultar 
+    public void Mostrar(){
+          try {
+            DefaultTableModel model = (DefaultTableModel)this.tblSeresVivos.getModel();
+            while (model.getRowCount()>0){model.removeRow(0);}//Limpiar modelo
+            for(VerSeresVivos temp : new VerSeresVivosCtrl().constTodo())
+            {
+                model.addRow(new Object[]{temp, temp.getDescSer(), temp.getPerteNombSer()});
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }    
+    }
+    
+    
+    
+      private void llenarCombobox(){
+     DefaultComboBoxModel<VerSeresVivos>modeEqui = new DefaultComboBoxModel<>();
+     for (VerSeresVivos temp : new VerSeresVivosCtrl().constTodo())
+     {
+         modeEqui.addElement(temp);
+     }
+     this.cmbPerte.setModel((ComboBoxModel)modeEqui);
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +63,408 @@ public class FrmSeresVivos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        txtCodi = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtNomb = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtDesc = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        cmbPerte = new javax.swing.JComboBox();
+        btnGuardar = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSeresVivos = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setText("Codigo:");
+
+        txtCodi.setText("1");
+        txtCodi.setToolTipText("");
+
+        jLabel13.setText("Nombre del Ser Vivo:");
+
+        txtNomb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Descripción:");
+
+        txtDesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Pertenece:");
+
+        cmbPerte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPerteActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        tblSeresVivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Descripcion", "Pertenece a"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblSeresVivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSeresVivosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblSeresVivos);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCodi, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNomb, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbPerte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtCodi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(txtNomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPerte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtNombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombActionPerformed
+
+    private void txtDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescActionPerformed
+
+    private void cmbPerteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPerteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPerteActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+      try {
+            if(txtNomb.getText().length()!=0 && txtDesc.getText().length()!=0 )
+            {
+
+                VerSeresVivos objeEqu1 = (VerSeresVivos) this.cmbPerte.getSelectedItem();                
+                VerSeresVivos obje = new VerSeresVivos();               
+                obje.setNombSer(this.txtNomb.getText());
+                obje.setDescSer(this.txtDesc.getText());                
+                obje.setPerteSer(objeEqu1.getCodiSer());
+                
+                if(cmbPerte.getSelectedIndex()==0)
+                {
+                    if(new VerSeresVivosCtrl().guardar(obje))
+                    {
+                        JOptionPane.showMessageDialog(this, "Datos guardados");
+                        txtCodi.setText("1");
+                        txtNomb.setText("");
+                        txtDesc.setText("");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Oops! algo salio mal");
+                    }
+                }
+                else
+                {
+                    if(new VerSeresVivosCtrl().guar(obje))
+                    {
+                        JOptionPane.showMessageDialog(this, "Datos guardados");
+                        txtCodi.setText("1");
+                        txtNomb.setText("");
+                        txtDesc.setText("");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "Oops! algo salio mal");
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "No deje campos vacios");
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        btnGuardar.setEnabled(false);
+        btnNuevo.setEnabled(true);
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        Mostrar();
+        llenarCombobox();
+        
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        try
+        {
+             if(txtNomb.getText().length()!=0 && txtDesc.getText().length()!=0 )
+             {
+                 VerSeresVivos objeEqu1 = (VerSeresVivos) this.cmbPerte.getSelectedItem();
+                 VerSeresVivos obje = new VerSeresVivos();
+                 obje.setCodiSer(Integer.parseInt(this.txtCodi.getText()));
+                 obje.setNombSer(this.txtNomb.getText());
+                 obje.setDescSer(this.txtDesc.getText());
+                 obje.setPerteSer(objeEqu1.getCodiSer());
+                
+                 if(cmbPerte.getSelectedIndex()==0)
+                 {
+                       if(new VerSeresVivosCtrl().modificar(obje))            
+                     {
+                         JOptionPane.showMessageDialog(this, "Datos Modificados");
+                         Mostrar();
+                     } 
+                     else
+                     {            
+                         JOptionPane.showMessageDialog(this, "Oops! algo salio mal");
+                     }
+                 }
+                 else 
+                 {
+                     if(new VerSeresVivosCtrl().modi(obje))            
+                     {
+                         JOptionPane.showMessageDialog(this, "Datos Modificados");
+                         Mostrar();
+                     } 
+                     else
+                     {            
+                         JOptionPane.showMessageDialog(this, "Oops! algo salio mal");
+                     }
+                 }
+             }
+             else
+             {
+                 JOptionPane.showMessageDialog(this, "No deje campos vacios");             
+             }
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       int comprobar = JOptionPane.showConfirmDialog(this, "Esta seguro que quiere eliminar este registro");
+       if(comprobar != 0)
+        {
+            
+        }
+       else 
+       {
+           try
+           {
+               VerSeresVivos obje = new VerSeresVivos();
+               obje.setCodiSer(Integer.parseInt(this.txtCodi.getText()));
+               
+               if(new VerSeresVivosCtrl().elim(obje))
+               {
+                   JOptionPane.showMessageDialog(this, "Datos Eliminados");
+                   Mostrar();
+                   txtCodi.setText("1");
+                   txtNomb.setText("");
+                   txtDesc.setText("");
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(this, "Oops! algo salio mal");
+               }
+           } catch (Exception ex) 
+           {
+               JOptionPane.showMessageDialog(this, ex.getMessage());
+           }
+       }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        btnGuardar.setEnabled(true);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        txtCodi.setText("1");
+        txtNomb.setText("");
+        txtDesc.setText("");
+        llenarCombobox();
+        tblSeresVivos.clearSelection();
+        DefaultTableModel model = (DefaultTableModel)this.tblSeresVivos.getModel();
+        while (model.getRowCount()>0){model.removeRow(0);}
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void tblSeresVivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSeresVivosMouseClicked
+         try{
+            int fila = this.tblSeresVivos.getSelectedRow();
+            if(fila >= 0)
+            {
+                VerSeresVivos obje = (VerSeresVivos)this.tblSeresVivos.getValueAt(fila, 0);
+                this.txtCodi.setText(String.valueOf(obje.getCodiSer()));
+                this.txtNomb.setText(obje.getNombSer());
+                this.txtDesc.setText(obje.getDescSer());
+                this.cmbPerte.setEditable(true);
+                this.cmbPerte.setSelectedItem(this.tblSeresVivos.getValueAt(fila, 2));
+                this.cmbPerte.setEditable(false);
+                
+            }
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(this, "Error"+ ex.getMessage());
+            }
+    }//GEN-LAST:event_tblSeresVivosMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        btnGuardar.setEnabled(true);
+       btnConsultar.setEnabled(true);
+       btnModificar.setEnabled(false);
+       btnEliminar.setEnabled(false);
+       btnNuevo.setEnabled(false);
+       
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -79,5 +502,21 @@ public class FrmSeresVivos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox cmbPerte;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblSeresVivos;
+    private javax.swing.JTextField txtCodi;
+    private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtNomb;
     // End of variables declaration//GEN-END:variables
 }
